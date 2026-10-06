@@ -42,12 +42,12 @@ math-llm-wiki/
 ├── README.md              # cos'è e come si usa
 ├── raw/
 │   ├── sources/           # fonti esterne, immutabili (pdf convertiti in .md, appunti di lezioni)
-│   │   └── _registry.md   # elenco fonti con id, citazione, data di ingest
 │   └── ideas/             # idee personali, datate (YYYY-MM-DD-titolo.md)
 ├── wiki/
 │   ├── index.md           # indice di tutte le pagine con riassunto di una riga
 │   ├── notation.md        # notazione e convenzioni vincolanti
 │   ├── open-questions.md  # domande aperte
+│   ├── registry.md        # registro delle fonti: id, citazione, affidabilità, data di ingest
 │   ├── definitions/
 │   ├── results/           # lemmi, proposizioni, teoremi, congetture
 │   ├── examples/          # esempi e controesempi
@@ -131,7 +131,7 @@ Regole di promozione:
 
 ### Affidabilità delle fonti
 
-Quanto un risultato è fissato dalla comunità è una proprietà della fonte, non del risultato, e per questo è un asse separato dallo stato. Ogni fonte ha un campo `reliability` nel registro e nella sua scheda `src-`.
+Quanto un risultato è fissato dalla comunità è una proprietà della fonte, non del risultato, e per questo è un asse separato dallo stato. Ogni fonte ha un campo `reliability` nel registro (`wiki/registry.md`) e nella sua scheda `src-`.
 
 | Livello | Esempi | Effetto sui risultati `cited` |
 | --- | --- | --- |
@@ -160,7 +160,7 @@ Fonti e idee entrano nella wiki con stati diversi; il lint controlla sia la wiki
 
 **`ingest <file>`** — porta una fonte nuova nella wiki.
 
-1. Registra la fonte in `raw/sources/_registry.md` (id, citazione completa, data).
+1. Registra la fonte in `wiki/registry.md` (id, citazione completa, affidabilità, data).
 2. Crea la scheda `wiki/sources/src-<id>.md` con riassunto e risultati estratti.
 3. Per ogni definizione o risultato rilevante crea o aggiorna la pagina wiki con stato `cited`.
 4. Segnala conflitti con la notazione o con pagine esistenti, senza risolverli da solo.

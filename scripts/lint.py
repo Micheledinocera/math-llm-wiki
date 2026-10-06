@@ -20,9 +20,9 @@ RAW = ROOT / "raw"
 SOURCES = RAW / "sources"
 IDEAS = RAW / "ideas"
 ARTICLES = ROOT / "articles"
-REGISTRY = SOURCES / "_registry.md"
+REGISTRY = WIKI / "registry.md"
 
-SPECIAL = {"index": "index", "notation": "notation", "open-questions": "questions"}
+SPECIAL = {"index": "index", "notation": "notation", "open-questions": "questions", "registry": "registry"}
 FOLDERS = {  # folder -> (type, {slug prefix: kind})
     "definitions": ("definition", {"def-": None}),
     "results": ("result", {"lem-": "lemma", "prop-": "proposition", "thm-": "theorem", "conj-": "conjecture"}),
@@ -195,7 +195,7 @@ if "open-questions" in special:
             error(path, f"heading '{line}' is not a valid q-<slug> anchor")
 
 registry: dict[str, list[str]] = {}
-if REGISTRY.exists():
+if "registry" in special:
     for line in REGISTRY.read_text(encoding="utf-8").splitlines():
         if not line.startswith("|"):
             continue
@@ -203,8 +203,6 @@ if REGISTRY.exists():
         if not cells[0] or cells[0] == "id" or set(cells[0]) <= set("-: "):
             continue
         registry[cells[0]] = cells
-else:
-    error(REGISTRY, "missing")
 
 
 def resolve(slug: str) -> bool:
@@ -254,7 +252,7 @@ for page in pages.values():
         if entry.startswith("raw/"):
             if not (ROOT / target).is_file():
                 error(path, f"provenance file not found: {target}")
-            elif not (target.startswith("raw/sources/") or target.startswith("raw/ideas/")) or target == rel(REGISTRY):
+            elif not (target.startswith("raw/sources/") or target.startswith("raw/ideas/")):
                 error(path, f"provenance must point to raw/sources/ or raw/ideas/: {entry}")
         elif not resolve(entry):
             error(path, f"provenance is neither a raw/ file nor a wiki slug: {entry}")
@@ -306,7 +304,7 @@ for page in pages.values():
             warn(path, f"provenance does not include raw/sources/{source_id}.md")
         row = registry.get(str(source_id))
         if row is None:
-            error(path, f"source '{source_id}' is not in raw/sources/_registry.md")
+            error(path, f"source '{source_id}' is not in wiki/registry.md")
         elif len(row) > 2 and row[2] != reliability:
             error(path, f"reliability '{reliability}' differs from the registry ('{row[2]}')")
 
@@ -472,7 +470,7 @@ if IDEAS.is_dir():
             warn(path, "idea file name should be YYYY-MM-DD-title.md")
 if SOURCES.is_dir():
     for path in sorted(SOURCES.glob("*.md")):
-        if path != REGISTRY and path.stem not in registry:
+        if path.stem not in registry:
             warn(path, "source not ingested yet (not in the registry)")
 for source_id in registry:
     if f"src-{source_id}" not in pages:

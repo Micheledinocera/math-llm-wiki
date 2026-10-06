@@ -8,11 +8,11 @@ The design and its reasons are in `docs/spec-v0.1.md` (Italian). This file is th
 
 ```text
 raw/sources/        external sources, immutable (Markdown conversions of PDFs, lecture notes)
-raw/sources/_registry.md   source registry: id, citation, reliability, file, ingest date
 raw/ideas/          the author's ideas, dated: YYYY-MM-DD-title.md
 wiki/index.md       every page with a one-line summary: always start here
 wiki/notation.md    binding notation and conventions
 wiki/open-questions.md     open questions, one q- section each
+wiki/registry.md   source registry: id, citation, reliability, file, ingest date
 wiki/definitions/   def-
 wiki/results/       lem-, prop-, thm-, conj-
 wiki/examples/      ex-, cex-
@@ -26,7 +26,7 @@ scripts/lint.py     mechanical checks
 
 ## Principles
 
-1. **Raw is immutable.** You read `raw/` and never change it (the only exception: the registry, see rule 1). Sources are the ground truth.
+1. **Raw is immutable.** You read `raw/` and never change it. Sources are the ground truth.
 2. **No statement without provenance.** Every statement in the wiki names the `raw/` file or the wiki page it comes from.
 3. **The human promotes the status.** You may propose a proof; only the author marks it verified, fully or partly.
 4. **One source of truth for notation.** `wiki/notation.md` binds the wiki and the articles.
@@ -89,7 +89,7 @@ Promotion rules:
 
 ### Source reliability
 
-How settled a result is in the community is a property of the source, so it is a separate axis from the status. Every source has `reliability` in the registry and on its `src-` page.
+How settled a result is in the community is a property of the source, so it is a separate axis from the status. Every source has `reliability` in `wiki/registry.md` and on its `src-` page.
 
 | Level | Examples | Effect on `cited` results |
 | --- | --- | --- |
@@ -119,7 +119,7 @@ The author runs them explicitly, one skill each, in `.claude/skills/`. Each skil
 
 ## Rules
 
-1. Never modify, rename or delete anything in `raw/`. Single exception: `raw/sources/_registry.md`, where `/ingest` appends one row per source, and where you change `reliability` only on the author's request.
+1. Never modify, rename or delete anything in `raw/`. The source registry lives in `wiki/registry.md`: `/ingest` appends one row per source, and you change `reliability` only on the author's request.
 2. Every statement you write in the wiki has a provenance in the frontmatter. If you do not know where it comes from, do not write it.
 3. Never set the statuses `verified` or `partial`. When a `proposed` proof looks complete to you, add it to the *Ready for verification* list in `log/changelog.md`.
 4. Never invent references: theorem number, page and citation must appear in the source.

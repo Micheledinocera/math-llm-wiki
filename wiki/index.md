@@ -9,6 +9,7 @@ Every wiki page, one line each: `- [[slug]]: one-line summary · status` (status
 
 - [[notation]]: binding notation and conventions
 - [[open-questions]]: open questions
+- [[registry]]: source registry, with reliability
 
 ## Definitions
 

@@ -15,10 +15,10 @@ The rules (page types, frontmatter, statuses, reliability, agent rules) are in `
 
 ## 1. Checks — stop if any fails
 
-1. **One source**: the argument is one file in `raw/sources/`, not `_registry.md`. Without an argument, list the sources `python scripts/lint.py` reports as not ingested and ask which one.
+1. **One source**: the argument is one file in `raw/sources/`. Without an argument, list the sources `python scripts/lint.py` reports as not ingested and ask which one.
 2. **Text**: the file must be Markdown. If it is a PDF, stop: how to convert PDFs is still open (spec, *Domande aperte*); ask the author for a Markdown version.
 3. **Id**: the file name without extension is the source id (`<firstauthor><year>`). If it does not follow the convention, ask the author before going on: renaming a raw file is theirs to do.
-4. **Re-ingest**: if the id is already in the registry, update the existing pages in place; never create duplicates.
+4. **Re-ingest**: if the id is already in `wiki/registry.md`, update the existing pages in place; never create duplicates.
 5. **Reliability**: ask the author when it is not certain. Book → `standard`; journal paper → `refereed`; arXiv or recent paper not yet published → `preprint`; notes, slides, blog, personal communication → `informal`. For a preprint, ask whether it has since been published.
 
 ## 2. Read
@@ -28,7 +28,7 @@ The rules (page types, frontmatter, statuses, reliability, agent rules) are in `
 
 ## 3. Register and summarise
 
-1. Append the row to `raw/sources/_registry.md`: `| id | full citation | reliability | raw/sources/<id>.md | today |`. It is the only edit allowed in `raw/`.
+1. Append the row to `wiki/registry.md`: `| id | full citation | reliability | raw/sources/<id>.md | today |`, and update its `updated` date.
 2. Create or update `wiki/sources/src-<id>.md` from `templates/source.md`: summary, extracted pages with their statement numbers, results quoted but not proved, notation map.
 
 ## 4. Pages
