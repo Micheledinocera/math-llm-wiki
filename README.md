@@ -2,7 +2,7 @@
 
 A system for writing mathematics articles with an LLM. Claude Code maintains a wiki of definitions, results and examples. For each statement it tracks where it comes from, what it depends on and how far it is proved. The author keeps the mathematical judgment, and articles draw only on what the wiki records as usable.
 
-Status: **v0.1**. The rules are a first hypothesis to test on two case studies in combinatorics. The design, in Italian, is in [docs/spec-v0.1.md](docs/spec-v0.1.md).
+Status: **v0.1**. The rules are a first hypothesis to test on two case studies in combinatorics. Open questions, the test plan and the planned export are in [docs/roadmap.md](docs/roadmap.md).
 
 ## Origins
 
@@ -55,7 +55,7 @@ Each operation ends with a summary and an entry in `log/changelog.md`. The agent
 
 ```text
 CLAUDE.md          rules for the agent
-docs/              design specification
+docs/roadmap.md    open questions, test plan, planned /export
 raw/sources/       external sources (immutable)
 raw/ideas/         personal ideas, dated
 wiki/              index, notation, open questions, source registry, and definitions/, results/, examples/, concepts/, sources/

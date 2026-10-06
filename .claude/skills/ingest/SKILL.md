@@ -16,7 +16,7 @@ The rules (page types, frontmatter, statuses, reliability, agent rules) are in `
 ## 1. Checks — stop if any fails
 
 1. **One source**: the argument is one file in `raw/sources/`. Without an argument, list the sources `python scripts/lint.py` reports as not ingested and ask which one.
-2. **Text**: the file must be Markdown. If it is a PDF, stop: how to convert PDFs is still open (spec, *Domande aperte*); ask the author for a Markdown version.
+2. **Text**: the file must be Markdown. If it is a PDF, stop: how to convert PDFs is still open (`docs/roadmap.md`); ask the author for a Markdown version.
 3. **Id**: the file name without extension is the source id (`<firstauthor><year>`). If it does not follow the convention, ask the author before going on: renaming a raw file is theirs to do.
 4. **Re-ingest**: if the id is already in `wiki/registry.md`, update the existing pages in place; never create duplicates.
 5. **Reliability**: ask the author when it is not certain. Book → `standard`; journal paper → `refereed`; arXiv or recent paper not yet published → `preprint`; notes, slides, blog, personal communication → `informal`. For a preprint, ask whether it has since been published.
@@ -36,7 +36,7 @@ The rules (page types, frontmatter, statuses, reliability, agent rules) are in `
 For each definition, result or example worth a page (granularity: results that are reused; a technical lemma used once stays inside its proof):
 
 - Start from the template; reuse the existing page if there is one.
-- **Status**: `cited` only when the source proves the result, with the statement number in the provenance anchor (`raw/sources/<id>.md#theorem-3.1`, `#p-12`). The number must appear in the source. If the source only sketches the proof: `sketch`. If it quotes the result from another work: no page; list it under *Quoted, not proved* on the `src-` page and suggest adding the original work.
+- **Status**: `cited` only when the source proves the result, with the statement number in the provenance anchor (`raw/sources/<id>.md#theorem-3.1`, `#p-12`). The number must appear in the source. `/ingest` is the only operation that sets `cited`, so check it here: the source gives a complete proof (not "we omit", not "see [12]"), and the page states the result faithfully (same hypotheses, same quantifiers, same conclusion, translated into `notation.md`). You check coherence with the source, not the proof's mathematics; the source's `reliability` covers that. If the source only sketches the proof: `sketch`. If it quotes the result from another work: no page; list it under *Quoted, not proved* on the `src-` page and suggest adding the original work.
 - **Dependencies**: `depends_on` lists the definitions and results the statement or proof uses. A missing dependency that the same source provides gets its own page; otherwise report it.
 - **Statement vs interpretation**: the body says what the source says; your comments go in **Notes** under `*Interpretation (agent):*`.
 - **Notation**: write in the symbols of `notation.md`, translating the source's symbols (record the mapping on the `src-` page). A symbol missing from `notation.md`: collect a proposal for the summary and add it only after the author's ok. A symbol that conflicts: stop and report.
@@ -49,7 +49,7 @@ For each definition, result or example worth a page (granularity: results that a
 2. Add the entry to `log/changelog.md` (format in `CLAUDE.md`).
 3. Run `python scripts/lint.py` and fix the mechanical errors you introduced. Leave the others for the summary.
 4. Report to the author:
-   - pages created and updated (slugs, statuses);
+   - pages created and updated (slugs, statuses), with the new `cited` results listed separately so the author can review them in the diff;
    - conflicts and where they are recorded;
    - notation proposals waiting for an ok;
    - results quoted but not proved, and suggested sources;
